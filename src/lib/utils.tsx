@@ -69,11 +69,11 @@ export const getFileIcon = (mimeType: string, className?: string) => {
 };
 
 export const getBaseUrl = () => {
-  if (process.env.VERCEL_URL) {
+  if (process.env.VERCEL_ENV === "production") {
     return `https://${process.env.VERCEL_URL}`;
   }
 
-  if (process.env.VERCEL_BRANCH_URL) {
+  if (process.env.VERCEL_ENV === "preview") {
     return `https://${process.env.VERCEL_BRANCH_URL}`;
   }
 
