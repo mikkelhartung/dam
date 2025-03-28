@@ -2,6 +2,7 @@ import { AssetCard } from "@/components/asset-card";
 import { AssetList } from "@/components/asset-list";
 import { SearchBar } from "@/components/search-bar";
 import { defaultFileFilters } from "@/lib/constants";
+import { getBaseUrl } from "@/lib/utils";
 import { Asset } from "@/types";
 
 type SearchParams = Promise<{
@@ -19,7 +20,8 @@ export default async function Home(props: { searchParams: SearchParams }) {
     fileType: searchParams.fileType ?? defaultFileFilters.toString(),
   });
 
-  const url = `http://localhost:3000/api/assets?${params}`;
+  const API_BASE_URL = getBaseUrl();
+  const url = `${API_BASE_URL}/api/assets?${params}`;
 
   const response = await fetch(url);
   const data = (await response.json()) as Asset[];

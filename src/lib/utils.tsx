@@ -67,3 +67,13 @@ export const getFileIcon = (mimeType: string, className?: string) => {
 
   return <File className={`h-4 w-4 ${className}`} />;
 };
+
+export const getBaseUrl = () => {
+  if (process.env.NODE_ENV === "development") {
+    return `http://localhost:3000`;
+  }
+
+  const domain = "dam-mikkelhartungs-projects.vercel.app";
+
+  return `https://${domain}`;
+};
