@@ -69,12 +69,11 @@ export const getFileIcon = (mimeType: string, className?: string) => {
 };
 
 export const getBaseUrl = () => {
-  if (
-    process.env.VERCEL_ENV === "production" ||
-    process.env.VERCEL_ENV === "preview"
-  ) {
-    return `https://${process.env.VERCEL_URL}`;
+  if (process.env.NODE_ENV === "development") {
+    return `http://localhost:3000`;
   }
 
-  return "http://localhost:3000";
+  const domain = process.env.VERCEL_URL || process.env.NEXT_PUBLIC_VERCEL_URL;
+
+  return `https://${domain}`;
 };
