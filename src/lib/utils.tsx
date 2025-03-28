@@ -73,7 +73,7 @@ export const getBaseUrl = () => {
     return `http://localhost:3000`;
   }
 
-  const domain = process.env.VERCEL_URL || process.env.NEXT_PUBLIC_VERCEL_URL;
+  const domain = "dam-mikkelhartungs-projects.vercel.app";
 
   return `https://${domain}`;
 };
