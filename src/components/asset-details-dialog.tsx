@@ -3,27 +3,23 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { formatDate, formatFileSize, getFileIcon } from "@/lib/utils";
 import { Asset } from "@/types";
 import { DialogProps } from "@radix-ui/react-dialog";
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import Image from "next/image";
 
 type AssetModalProps = {
-  children: ReactNode;
   asset: Asset | undefined;
 } & DialogProps;
 
 export const AssetDetailsDialog: FC<AssetModalProps> = ({
-  children,
   asset,
   ...dialogProps
 }) => {
   return (
     <Dialog {...dialogProps}>
-      <DialogTrigger>{children}</DialogTrigger>
       <DialogContent className="max-w-3xl">
         <DialogHeader>
           <DialogTitle className="flex gap-1">

@@ -22,20 +22,16 @@ export const AssetCard: FC<AssetCardProps> = ({ asset }) => {
   const [isDetailsDialogOpen, setIsDetailsDialogOpen] =
     useState<boolean>(false);
 
-  const selectAsset = (asset: Asset) => {
+  const handleAssetClick = (asset: Asset) => {
     setSelectedAsset(asset);
-    setIsDetailsDialogOpen(!isDetailsDialogOpen);
+    setIsDetailsDialogOpen(true);
   };
 
   return (
-    <AssetDetailsDialog
-      open={isDetailsDialogOpen}
-      onOpenChange={setIsDetailsDialogOpen}
-      asset={selectedAsset}
-    >
+    <>
       <Card
         className="hover:border-accent-foreground cursor-pointer gap-4 rounded-none pt-0 transition"
-        onClick={() => selectAsset(asset)}
+        onClick={() => handleAssetClick(asset)}
       >
         <CardHeader className="px-0">
           <AspectRatio ratio={16 / 9}>
@@ -61,6 +57,11 @@ export const AssetCard: FC<AssetCardProps> = ({ asset }) => {
           <p className="text-sm">{formatDate(asset.modifiedAt)}</p>
         </CardFooter>
       </Card>
-    </AssetDetailsDialog>
+      <AssetDetailsDialog
+        open={isDetailsDialogOpen}
+        onOpenChange={setIsDetailsDialogOpen}
+        asset={selectedAsset}
+      />
+    </>
   );
 };

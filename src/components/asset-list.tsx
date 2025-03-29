@@ -10,9 +10,15 @@ interface AssetListProps {
 
 export const AssetList: FC<AssetListProps> = ({ assets }) => {
   const [selectedAsset, setSelectedAsset] = useState<Asset>();
+  const [isDetailDialogOpen, setIsDetailDialogOpen] = useState(false);
+
+  const handleAssetClick = (asset: Asset) => {
+    setSelectedAsset(asset);
+    setIsDetailDialogOpen(true);
+  };
 
   return (
-    <AssetDetailsDialog asset={selectedAsset}>
+    <>
       <div className="overflow-hidden rounded-md border">
         <div className="bg-muted grid grid-cols-12 px-4 py-2 text-sm font-medium">
           <div className="col-span-5">Name</div>
@@ -24,7 +30,7 @@ export const AssetList: FC<AssetListProps> = ({ assets }) => {
           <div
             key={asset.id}
             className="hover:bg-muted/50 grid cursor-pointer grid-cols-12 border-t px-4 py-3"
-            onClick={() => setSelectedAsset(asset)}
+            onClick={() => handleAssetClick(asset)}
           >
             <div className="col-span-5 flex items-center gap-2">
               {getFileIcon(asset.mimeType, "")}
@@ -42,6 +48,11 @@ export const AssetList: FC<AssetListProps> = ({ assets }) => {
           </div>
         ))}
       </div>
-    </AssetDetailsDialog>
+      <AssetDetailsDialog
+        asset={selectedAsset}
+        open={isDetailDialogOpen}
+        onOpenChange={setIsDetailDialogOpen}
+      />
+    </>
   );
 };
