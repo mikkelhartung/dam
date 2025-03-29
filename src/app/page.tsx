@@ -1,7 +1,6 @@
 import { AssetCard } from "@/components/asset-card";
 import { AssetList } from "@/components/asset-list";
 import { SearchBar } from "@/components/search-bar";
-import { defaultFileFilters } from "@/lib/constants";
 import { getBaseUrl } from "@/lib/utils";
 import { Asset } from "@/types";
 
@@ -17,7 +16,7 @@ export default async function Home(props: { searchParams: SearchParams }) {
 
   const params = new URLSearchParams({
     query: searchParams.query ?? "",
-    fileType: searchParams.fileType ?? defaultFileFilters.toString(),
+    fileType: searchParams.fileType ?? [],
   });
 
   const API_BASE_URL = getBaseUrl();

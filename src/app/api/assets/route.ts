@@ -7,7 +7,8 @@ export const GET = async (
 ): Promise<NextResponse<Asset[]>> => {
   const searchParams = request.nextUrl.searchParams;
   const query = searchParams.get("query");
-  const fileTypes = searchParams.getAll("fileType")[0].split(",");
+  const rawFileTypes = searchParams.get("fileType");
+  const fileTypes = rawFileTypes ? rawFileTypes.split(",") : [];
 
   const filteredAssets = data.filter((asset) => {
     const matchesSearch = asset.fileName
@@ -31,6 +32,8 @@ export const GET = async (
       fileType === "application" &&
       fileSubType === "powerpoint" &&
       fileTypes.includes("presentations");
+
+    if (!fileTypes.length) return matchesSearch;
 
     return (
       matchesSearch &&

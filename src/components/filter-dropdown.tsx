@@ -8,9 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "./ui/button";
 import { Filter } from "lucide-react";
-import { useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { defaultFileFilters } from "@/lib/constants";
 import { updateQueryParams } from "@/lib/utils";
 
 export const FilterDropdown = () => {
@@ -18,22 +16,14 @@ export const FilterDropdown = () => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const fileTypeParams = searchParams.getAll("fileType");
-
-  const defaultActiveFilters =
-    fileTypeParams[0]?.split(",") ?? defaultFileFilters;
-
-  const [activeFilters, setActiveFilters] =
-    useState<string[]>(defaultActiveFilters);
+  const fileTypeParams = searchParams.get("fileType") ?? "";
+  const activeFilters = fileTypeParams ? fileTypeParams.split(",") : [];
 
   const handleFilterChange = (filterName: string) => {
     const newFilters = activeFilters.includes(filterName)
       ? activeFilters.filter((f) => f !== filterName)
       : [...activeFilters, filterName];
 
-    setActiveFilters(newFilters);
-
-    // TODO: FIX THIS PARAM ISSUE WHEN THERE IS NO FILTERS ADDED
     router.push(
       pathname +
         "?" +
