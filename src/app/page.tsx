@@ -30,7 +30,7 @@ export default async function Home(props: { searchParams: SearchParams }) {
       <SearchBar />
 
       {data.length > 0 && (
-        <div className="flex flex-row-reverse">
+        <div className="flex">
           <p>
             Found <span className="font-semibold">{data.length}</span> assets
           </p>

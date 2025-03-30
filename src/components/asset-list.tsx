@@ -36,8 +36,8 @@ export const AssetList: FC<AssetListProps> = ({ assets }) => {
               {getFileIcon(asset.mimeType, "")}
               <span className="truncate">{asset.fileName}</span>
             </div>
-            <div className="text-muted-foreground col-span-2 text-sm">
-              {asset.mimeType.split("/")[1].toUpperCase()}
+            <div className="text-muted-foreground col-span-2 text-sm uppercase">
+              {asset.mimeType.split("/")[1]}
             </div>
             <div className="text-muted-foreground col-span-2 text-sm">
               {formatFileSize(asset.fileSize)}

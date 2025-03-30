@@ -51,21 +51,23 @@ export const getFileIcon = (mimeType: string, className?: string) => {
   const fileType = mimeType.split("/")[0];
   const fileSubType = mimeType.split("/")[1];
 
+  const classNames = cn("h-4 w-4 ", className);
+
   if (fileType === "image") {
-    return <FileImage className={`h-4 w-4 ${className}`} />;
+    return <FileImage className={classNames} />;
   } else if (fileType === "video") {
-    return <Film className={`h-4 w-4 ${className}`} />;
+    return <Film className={classNames} />;
   } else if (fileType === "application") {
     if (fileSubType === "pdf" || fileSubType === "msword") {
-      return <FileText className={`h-4 w-4 ${className}`} />;
+      return <FileText className={classNames} />;
     } else if (fileSubType === "vnd.ms-excel") {
-      return <FileSpreadsheet className={`h-4 w-4 ${className}`} />;
+      return <FileSpreadsheet className={classNames} />;
     } else if (fileSubType === "powerpoint") {
-      return <FileIcon className={`h-4 w-4 ${className}`} />;
+      return <FileIcon className={classNames} />;
     }
   }
 
-  return <File className={`h-4 w-4 ${className}`} />;
+  return <File className={classNames} />;
 };
 
 export const getBaseUrl = () => {

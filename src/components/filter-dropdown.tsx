@@ -31,6 +31,14 @@ export const FilterDropdown = () => {
     );
   };
 
+  const dropdownItems: string[] = [
+    "images",
+    "videos",
+    "documents",
+    "spreadsheets",
+    "presentations",
+  ];
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -40,36 +48,16 @@ export const FilterDropdown = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuCheckboxItem
-          checked={activeFilters.includes("images")}
-          onCheckedChange={() => handleFilterChange("images")}
-        >
-          Images
-        </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem
-          checked={activeFilters.includes("videos")}
-          onCheckedChange={() => handleFilterChange("videos")}
-        >
-          Videos
-        </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem
-          checked={activeFilters.includes("documents")}
-          onCheckedChange={() => handleFilterChange("documents")}
-        >
-          Documents
-        </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem
-          checked={activeFilters.includes("spreadsheets")}
-          onCheckedChange={() => handleFilterChange("spreadsheets")}
-        >
-          Spreadsheets
-        </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem
-          checked={activeFilters.includes("presentations")}
-          onCheckedChange={() => handleFilterChange("presentations")}
-        >
-          Presentations
-        </DropdownMenuCheckboxItem>
+        {dropdownItems.map((item) => (
+          <DropdownMenuCheckboxItem
+            key={item}
+            checked={activeFilters.includes(item)}
+            onCheckedChange={() => handleFilterChange(item)}
+            className="capitalize"
+          >
+            {item}
+          </DropdownMenuCheckboxItem>
+        ))}
       </DropdownMenuContent>
     </DropdownMenu>
   );

@@ -10,9 +10,9 @@ import { DialogProps } from "@radix-ui/react-dialog";
 import { FC } from "react";
 import Image from "next/image";
 
-type AssetModalProps = {
+interface AssetModalProps extends DialogProps {
   asset: Asset | undefined;
-} & DialogProps;
+}
 
 export const AssetDetailsDialog: FC<AssetModalProps> = ({
   asset,
