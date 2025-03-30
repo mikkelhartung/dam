@@ -3,7 +3,7 @@
 import { Grid, List } from "lucide-react";
 import { Button } from "./ui/button";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { updateQueryParams } from "@/lib/utils";
 
 const ViewMode = {
@@ -17,11 +17,17 @@ export const ListViewToggle = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const view = searchParams.get("view") ?? "grid";
+  const view = searchParams.get("view");
 
   const [viewMode, setViewMode] = useState<ViewMode>(
-    (view as ViewMode) ?? ViewMode.GRID,
+    (view as ViewMode) || ViewMode.GRID,
   );
+
+  useEffect(() => {
+    if (!view) {
+      setViewMode(ViewMode.GRID);
+    }
+  }, [view]);
 
   const selectView = (view: ViewMode) => {
     setViewMode(view);
