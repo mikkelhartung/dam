@@ -16,7 +16,7 @@ This demo is deployed and available [here](https://dam-git-main-mikkelhartungs-p
 
 ### Choice: URL search parameters for state management.
 
-- **Reasoning**: URL search parameters is a browser standard and today we have modern API's like [URLSearchParams](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams) that makes it easy to manage and sanitize search paramers. The search parameters works as a global state so there is no real need for a state management library. For places where we do need to manage some state, the native react state management is sufficient.
+- **Reasoning**: URL search parameters is a browser standard and today we have modern API's like [URLSearchParams](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams) that makes it easy to manage and sanitize search parameters. The parameters works as a global state so there is no real need for a state management library. For places where we do need to manage some state, the native react state management is sufficient.
 
 - **Trade-off**: To me, there is no real trade-off. Both the server and client can tap into this and start using the parameters via. URLSearchParams.
 
