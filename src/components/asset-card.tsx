@@ -7,31 +7,22 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Asset } from "@/types";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { AspectRatio } from "./ui/aspect-ratio";
 import Image from "next/image";
 import { formatDate, formatFileSize, getFileIcon } from "@/lib/utils";
-import { AssetDetailsDialog } from "./asset-details-dialog";
 
 interface AssetCardProps {
   asset: Asset;
+  onSelect: () => void;
 }
 
-export const AssetCard: FC<AssetCardProps> = ({ asset }) => {
-  const [selectedAsset, setSelectedAsset] = useState<Asset>();
-  const [isDetailsDialogOpen, setIsDetailsDialogOpen] =
-    useState<boolean>(false);
-
-  const handleAssetClick = (asset: Asset) => {
-    setSelectedAsset(asset);
-    setIsDetailsDialogOpen(true);
-  };
-
+export const AssetCard: FC<AssetCardProps> = ({ asset, onSelect }) => {
   return (
     <>
       <Card
         className="hover:border-accent-foreground cursor-pointer gap-4 rounded-none pt-0 transition"
-        onClick={() => handleAssetClick(asset)}
+        onClick={onSelect}
       >
         <CardHeader className="px-0">
           <AspectRatio ratio={16 / 9}>
@@ -57,11 +48,6 @@ export const AssetCard: FC<AssetCardProps> = ({ asset }) => {
           <p className="text-sm">{formatDate(asset.modifiedAt)}</p>
         </CardFooter>
       </Card>
-      <AssetDetailsDialog
-        open={isDetailsDialogOpen}
-        onOpenChange={setIsDetailsDialogOpen}
-        asset={selectedAsset}
-      />
     </>
   );
 };
