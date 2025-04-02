@@ -1,6 +1,8 @@
-import { AssetCard } from "@/components/asset-card";
+import { AssetCardList } from "@/components/asset-card-list";
+import { AssetDetailsDialog } from "@/components/asset-details-dialog";
 import { AssetList } from "@/components/asset-list";
 import { SearchBar } from "@/components/search-bar";
+import { AssetProvider } from "@/contexts/asset";
 import { getBaseUrl } from "@/lib/utils";
 import { Asset } from "@/types";
 
@@ -37,12 +39,11 @@ export default async function Home(props: { searchParams: SearchParams }) {
         </div>
       )}
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-        {view === "grid" &&
-          data.map((asset) => <AssetCard key={asset.id} asset={asset} />)}
-      </div>
-
-      {view === "list" && <AssetList assets={data} />}
+      <AssetProvider>
+        {view === "grid" && <AssetCardList assets={data} />}
+        {view === "list" && <AssetList assets={data} />}
+        <AssetDetailsDialog />
+      </AssetProvider>
 
       {!data.length && (
         <div className="flex flex-row justify-center">

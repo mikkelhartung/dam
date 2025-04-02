@@ -1,21 +1,15 @@
 "use client";
 import { formatDate, formatFileSize, getFileIcon } from "@/lib/utils";
 import { Asset } from "@/types";
-import { FC, useState } from "react";
-import { AssetDetailsDialog } from "./asset-details-dialog";
+import { FC } from "react";
+import { useAsset } from "@/hooks/use-asset";
 
 interface AssetListProps {
   assets: Asset[];
 }
 
 export const AssetList: FC<AssetListProps> = ({ assets }) => {
-  const [selectedAsset, setSelectedAsset] = useState<Asset>();
-  const [isDetailDialogOpen, setIsDetailDialogOpen] = useState(false);
-
-  const handleAssetClick = (asset: Asset) => {
-    setSelectedAsset(asset);
-    setIsDetailDialogOpen(true);
-  };
+  const { setAsset } = useAsset();
 
   return (
     <>
@@ -30,7 +24,7 @@ export const AssetList: FC<AssetListProps> = ({ assets }) => {
           <div
             key={asset.id}
             className="hover:bg-muted/50 grid cursor-pointer grid-cols-12 border-t px-4 py-3"
-            onClick={() => handleAssetClick(asset)}
+            onClick={() => setAsset(asset)}
           >
             <div className="col-span-5 flex items-center gap-2">
               {getFileIcon(asset.mimeType, "")}
@@ -48,11 +42,6 @@ export const AssetList: FC<AssetListProps> = ({ assets }) => {
           </div>
         ))}
       </div>
-      <AssetDetailsDialog
-        asset={selectedAsset}
-        open={isDetailDialogOpen}
-        onOpenChange={setIsDetailDialogOpen}
-      />
     </>
   );
 };
