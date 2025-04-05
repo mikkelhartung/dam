@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Dialog,
   DialogContent,
@@ -5,21 +7,31 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { formatDate, formatFileSize, getFileIcon } from "@/lib/utils";
-import { Asset } from "@/types";
 import { DialogProps } from "@radix-ui/react-dialog";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import Image from "next/image";
+import { useAsset } from "@/hooks/use-asset";
 
-interface AssetModalProps extends DialogProps {
-  asset: Asset | undefined;
-}
+export const AssetDetailsDialog: FC<DialogProps> = ({ ...dialogProps }) => {
+  const { asset, setAsset } = useAsset();
+  const [isOpen, setIsOpen] = useState(false);
 
-export const AssetDetailsDialog: FC<AssetModalProps> = ({
-  asset,
-  ...dialogProps
-}) => {
+  useEffect(() => {
+    if (asset) {
+      setIsOpen(true);
+    }
+  }, [asset]);
+
+  const handleOpenChange = (open: boolean) => {
+    setIsOpen(open);
+
+    if (!open) {
+      setAsset(null);
+    }
+  };
+
   return (
-    <Dialog {...dialogProps}>
+    <Dialog open={isOpen} onOpenChange={handleOpenChange} {...dialogProps}>
       <DialogContent className="max-w-3xl">
         <DialogHeader>
           <DialogTitle className="flex gap-1">
